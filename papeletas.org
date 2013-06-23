@@ -1,0 +1,45 @@
+* Nombre del proyecto
+  Papeletas
+
+* Fecha de inicio
+  <2013-06-06 jue>
+
+
+* Fecha de término
+** Primera etapa
+  DEADLINE: <2013-06-06 jue>
+  
+* Descripción del proyecto
+  Creación de un programa para el ingreso de información de las papeletas del
+  personal de la Dirección Sub Regional de Salud Cutervo
+
+* Definición de requisitos
+  - Ingreso de la papeleta de personal
+  - Ingreso de personal nuevo
+  - Reportes de acumulación de tiempo en meses por trabajador
+
+* Estructuras de las tablas
+
+** Tabla papeleta
+   | Nº | Nombre del campo | Tipo de campo       | Restricción        |
+   |----+------------------+---------------------+--------------------|
+   |  1 | num_papeleta     | entero              | pk                 |
+   |  2 | fecha            | date                |                    |
+   |  4 | autorizado_para  | texto               |                    |
+   |  5 | hora_salida      | time                |                    |
+   |  6 | hora_retorno     | time                |                    |
+   |  7 | motivo           | texto               |                    |
+   |  8 | fundamentacion   | texto               |                    |
+   |  9 | rowid            | entero (automatico) | fk pesonal (rowid) |
+
+
+** Tabla personal
+   | Nº | Nombre del campo | Tipo de campo       | Restricción |
+   |----+------------------+---------------------+-------------|
+   |  1 | rowid            | entero (automatico) | pk          |
+   |  2 | dni              | entero              |             |
+   |  3 | nombre           | texto               |             |
+   |  4 | profesion        | texto               |             |
+   |  5 | oficina_servicio | texto               |             |
+
+* Diseño de la interfaz
