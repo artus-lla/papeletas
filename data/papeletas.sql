@@ -5,8 +5,9 @@
 
 -- Tabla papeleta
 
+
 CREATE TABLE personal(
-       dni              TEXT NOT NULL UNIQUE,
+       dni              TEXT NOT NULL PRIMARY KEY UNIQUE,
        nombre           TEXT NOT NULL,
        profesion        TEXT NOT NULL,
        oficina_servicio TEXT NOT NULL,
@@ -16,28 +17,28 @@ CREATE TABLE personal(
  );
 
 -- Poblar tabla personal
- INSERT INTO personal VALUES ('41614657','Sebastían', 'Medico', 'Emerg');
+ INSERT INTO personal VALUES ('41614657','Sebastián', 'Médico', 'Emerg');
  INSERT INTO personal VALUES ('41614658','Rafael', 'Escritor', 'Emerg');
  INSERT INTO personal VALUES ('41614659','Leandro', 'Ingeniero', 'Emerg');
 
- 
-CREATE TABLE papeleta (
-       rowid            INTEGER NOT NULL REFERENCES personal( rowid ),
+ -- tabla papeletas
+CREATE TABLE papeletas (
        num_papeleta     INTEGER NOT NULL PRIMARY KEY,
        fecha            DATE NOT NULL,
-       autorizado_para  TEXTO NOT NULL,
-       hora_salida      TIME,
-       hora_retorno     TIME,
-       motivo           TEXT,
-       fundamentacion   TEXT       
+       nombre           TEXT NOT NULL,
+       autorizado_para  TEXT NOT NULL,
+       hora_salida      TIME NOT NULL,
+       hora_retorno     TIME NOT NULL,
+       motivo           TEXT NOT NULL,
+       fundamentacion   TEXT NOT NULL      
 );
 
-INSERT INTO papeleta ( rowid, num_papeleta, fecha, autorizado_para, hora_salida,
+INSERT INTO papeletas ( num_papeleta, fecha, nombre, autorizado_para, hora_salida,
                        hora_retorno, motivo, fundamentacion )
-              VALUES ( 1, 28, '05-03-2012', 'salir', '10:15', '10:45',
+              VALUES (  28, '05-03-2012', 'Sebastián', 'salir', '10:15', '10:45',
 	               'Personales', 'ESSALUD' );
 
-INSERT INTO papeleta ( rowid, num_papeleta, fecha, autorizado_para, hora_salida,
+INSERT INTO papeletas ( num_papeleta, fecha, nombre, autorizado_para, hora_salida,
                        hora_retorno, motivo, fundamentacion )
-              VALUES ( 1, 29 , '05-03-2012', 'salir', '10:15', '10:45',
+              VALUES (  29 , '05-03-2012', 'Rafael' 'salir', '10:15', '10:45',
 	               'Personales', 'ESSALUD' );
