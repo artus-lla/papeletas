@@ -32,3 +32,45 @@ def hora(entry, Text):
     else:
         entry.stop_emission("insert_text")
 
+def valor_combobox(combobox):
+    modelo = combobox.get_model()
+    activo = combobox.get_active()
+    if activo < 0:
+        return None
+    return modelo[activo][0]
+
+def llenar_combo_anio(combo):
+    anios = ['2013', '2014', '2015', '2016']
+    listaComboAnio = Gtk.ListStore(str)
+    for i in anios:
+        listaComboAnio.append([i])
+
+    combo.set_model(listaComboAnio)
+    render = Gtk.CellRendererText()
+    combo.pack_start(render, True)
+    combo.add_attribute(render, 'text', 0)
+
+def llenar_combo_mes(combo):
+    """ Llenar combo Mes """
+
+    meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
+             'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    listaComboMes = Gtk.ListStore(str)
+    for i in meses:
+        listaComboMes.append([i])
+    
+    combo.set_model(listaComboMes)
+    render = Gtk.CellRendererText()
+    combo.pack_start(render, True)
+    combo.add_attribute(render, 'text', 0)    
+
+def arreglar_fecha(fecha):
+    """Transforma una fecha en formato 10-12-2013 a 2013-12-10"""
+    
+    fecha_div = fecha.split('-')
+    #print(fecha_div)
+    for i in fecha_div:
+        nueva_fecha = fecha_div[2] + '-' + fecha_div[1] + '-' + fecha_div[0]
+    #print(nueva_fecha)
+
+    return nueva_fecha

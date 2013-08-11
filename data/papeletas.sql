@@ -42,3 +42,9 @@ INSERT INTO papeletas ( num_papeleta, fecha, nombre, autorizado_para, hora_salid
                        hora_retorno, motivo, fundamentacion )
               VALUES (  29 , '05-03-2012', 'Rafael' 'salir', '10:15', '10:45',
 	               'Personales', 'ESSALUD' );
+
+select num_papeleta, strftime('%Y', fecha) as Año, strftime('%m', fecha) as Mes,
+       nombre, autorizado_para, hora_salida, hora_retorno, motivo, fundamentacion
+from papeletas
+where strftime('%Y', fecha) = '2013'
+GROUP BY nombre, motivo;

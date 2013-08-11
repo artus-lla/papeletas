@@ -66,6 +66,15 @@ class VentanaPrincipal:
         self.btn_ing_nuevo = b.get_object("btn_ing_nuevo")
 
         self.acerca_de = b.get_object("acerca_de")
+
+        # Reportes
+        self.combo_anio = b.get_object("combo_anio")
+        self.combo_mes = b.get_object("combo_mes")
+        self.btn_report = b.get_object("btn_report")
+
+        # Llenar combos
+        misutils.llenar_combo_anio(self.combo_anio)
+        misutils.llenar_combo_mes(self.combo_mes)
                 
         
          # Auto conectar con las señales
@@ -74,7 +83,6 @@ class VentanaPrincipal:
         self.notebook.hide()
          # Destruir ventana
         self.window1.connect('destroy', lambda w: Gtk.main_quit())
-
   
 
     def on_btn_papeleta_toggled(self, widget, data=None):
@@ -132,7 +140,8 @@ class VentanaPrincipal:
         motivo = ""
         # * Obtener datos
         num_papeleta = self.ent_ing_num_papel.get_text()
-        fecha        = self.ent_ing_fecha.get_text()
+        fecha        = misutils.arreglar_fecha(self.ent_ing_fecha.get_text())
+        print(fecha)
         nombres      = self.ent_ing_nombres.get_text()
 
         # **  Determinar el valor de la variable autorizado para
@@ -184,6 +193,27 @@ class VentanaPrincipal:
         self.text_fundamento.set_text("")                
 
         self.ent_ing_num_papel.grab_focus()
+
+    def on_btn_report_clicked(self, widget, data=None):
+        """Generación del reporte"""
+        
+        anio = misutils.valor_combobox(self.combo_anio)
+        mes = misutils.valor_combobox(self.combo_mes)
+
+        if anio == None:
+            misutils.mensaje_dialogo("Debe seleccionar un año")
+        print("Reporte...", anio, mes)
+
+        #try:
+        bd_papeletas = sqlite3.connect("./data/papeletas.db")
+        cursor = bd_papeletas.cursor()
+        values = (anio)
+        
+        cursor.execute(bd.reporte, values)
+        bd_papeletas.commit()
+        bd_papeletas.close()
+        #except:
+            
 
     # ========== Ingreso de Personal ===================
     def on_ent_dni_insert_text(self, widget, Text, position, data=None):
