@@ -24,13 +24,13 @@ CREATE TABLE personal(
  -- tabla papeletas
 CREATE TABLE papeletas (
        num_papeleta     INTEGER NOT NULL PRIMARY KEY,
-       fecha            DATE NOT NULL,
-       nombre           TEXT NOT NULL,
-       autorizado_para  TEXT NOT NULL,
-       hora_salida      TIME NOT NULL,
-       hora_retorno     TIME NOT NULL,
-       motivo           TEXT NOT NULL,
-       fundamentacion   TEXT NOT NULL      
+       fecha            DATE NOT NULL CHECK (fecha != ''),
+       nombre           TEXT NOT NULL CHECK (nombre != ''),
+       autorizado_para  TEXT NOT NULL CHECK (autorizado_para != ''),
+       hora_salida      TIME NOT NULL CHECK (hora_salida != ''),
+       hora_retorno     TIME NOT NULL CHECK (hora_retorno != ''),
+       motivo           TEXT NOT NULL CHECK (motivo != ''),
+       fundamentacion   TEXT NOT NULL CHECK (fundamentacion != '')     
 );
 
 INSERT INTO papeletas ( num_papeleta, fecha, nombre, autorizado_para, hora_salida,

@@ -34,14 +34,14 @@ def hora(entry, Text):
 
 def valor_combobox(combobox):
     modelo = combobox.get_model()
-    activo = combobox.get_active()
-    if activo < 0:
-        return None
+    activo = combobox.get_active_iter()
+    if activo is None:
+        return None 
     return modelo[activo][0]
 
 def llenar_combo_anio(combo):
-    anios = ['2013', '2014', '2015', '2016']
-    listaComboAnio = Gtk.ListStore(str)
+    anios = [2013, 2014, 2015, 2015]
+    listaComboAnio = Gtk.ListStore(int)
     for i in anios:
         listaComboAnio.append([i])
 

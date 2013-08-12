@@ -6,8 +6,7 @@ insertar_datos = """\
 INSERT INTO personal VALUES (?, ?, ?, ?)
 """
 insertar_papeleta = """\
-INSERT INTO papeletas ( num_papeleta, fecha, nombre, autorizado_para, hora_salida,
-                       hora_retorno, motivo, fundamentacion )
+INSERT INTO papeletas ( num_papeleta, fecha, nombre, autorizado_para, hora_salida, hora_retorno, motivo, fundamentacion )
               VALUES (  ?, ?, ?, ?, ?, ?, ?, ? );
 """
 
@@ -15,7 +14,7 @@ reporte = """\
 select num_papeleta, strftime('%Y', fecha) as Año, strftime('%m', fecha) as Mes,
        nombre, autorizado_para, hora_salida, hora_retorno, motivo, fundamentacion
 from papeletas
-where strftime('%Y', fecha) = ?
+where strftime('%Y', fecha) = '2013'
 GROUP BY nombre, motivo
 """
 

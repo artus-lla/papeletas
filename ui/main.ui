@@ -45,6 +45,7 @@ Debería haber recibido una copia de la Licencia Pública General de GNUjunto co
   <object class="GtkListStore" id="liststore1"/>
   <object class="GtkWindow" id="window1">
     <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Papeletas - Control de salidas del personal</property>
     <property name="default_width">440</property>
     <property name="default_height">250</property>
     <child>

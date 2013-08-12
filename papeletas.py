@@ -136,12 +136,12 @@ class VentanaPrincipal:
 
     def on_btn_ing_guardar_clicked(self, widget, data=None):
         """Grabar datos de papeleta"""
+       
         autorizado_para = ""
         motivo = ""
         # * Obtener datos
         num_papeleta = self.ent_ing_num_papel.get_text()
-        fecha        = misutils.arreglar_fecha(self.ent_ing_fecha.get_text())
-        print(fecha)
+        fecha        = self.ent_ing_fecha.get_text()
         nombres      = self.ent_ing_nombres.get_text()
 
         # **  Determinar el valor de la variable autorizado para
@@ -168,48 +168,54 @@ class VentanaPrincipal:
         #print(motivo)
 
         fundamento = self.text_fundamento.get_text()
-
-        campos = ( num_papeleta, fecha, nombres, autorizado_para,
-                   hora_salida, hora_retorno, motivo, fundamento )
-        #for campo in campos:
-        #    print(campo)
+           
+        campos = ( num_papeleta, fecha, nombres,
+                       autorizado_para, hora_salida, hora_retorno, motivo,
+                       fundamento )
 
         try:
+            fecha = misutils.arreglar_fecha(fecha)
             bd_papeletas = sqlite3.connect("./data/papeletas.db")
             cursor = bd_papeletas.cursor()
-        
+            
             cursor.execute(bd.insertar_papeleta, campos)
             bd_papeletas.commit()
             bd_papeletas.close()
+            # Limpiar campos
+            self.ent_ing_num_papel.set_text("")
+            self.ent_ing_fecha.set_text("")
+            self.ent_ing_nombres.set_text("")
+            self.ent_ing_hsalida.set_text("")
+            self.ent_ing_hretorno.set_text("")
+            self.text_fundamento.set_text("")                
+            
+            self.ent_ing_num_papel.grab_focus()
         except sqlite3.IntegrityError:
             misutils.mensaje_dialogo("Debe llenar todos los campos")
-
-        # Limpiar campos
-        self.ent_ing_num_papel.set_text("")
-        self.ent_ing_fecha.set_text("")
-        self.ent_ing_nombres.set_text("")
-        self.ent_ing_hsalida.set_text("")
-        self.ent_ing_hretorno.set_text("")
-        self.text_fundamento.set_text("")                
-
-        self.ent_ing_num_papel.grab_focus()
+        except IndexError:
+            misutils.mensaje_dialogo("La fecha proporsionada no es correcta")
+            self.ent_ing_fecha.grab_focus()
+                
+       
 
     def on_btn_report_clicked(self, widget, data=None):
         """Generación del reporte"""
         
         anio = misutils.valor_combobox(self.combo_anio)
+        
         mes = misutils.valor_combobox(self.combo_mes)
 
         if anio == None:
             misutils.mensaje_dialogo("Debe seleccionar un año")
-        print("Reporte...", anio, mes)
+        
 
         #try:
         bd_papeletas = sqlite3.connect("./data/papeletas.db")
         cursor = bd_papeletas.cursor()
-        values = (anio)
-        
-        cursor.execute(bd.reporte, values)
+                
+        cursor.execute(bd.reporte)
+        reporte = cursor.fetchall()
+        print(reporte)
         bd_papeletas.commit()
         bd_papeletas.close()
         #except:
